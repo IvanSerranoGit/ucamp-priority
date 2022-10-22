@@ -11,10 +11,19 @@ if(prioridades.length == 0){
 
 function pushButton() {
     prioridades.push(prioridad.value);
-    misPrioridades.innerHTML =  ` ${prioridades}`;
+    // misPrioridades.innerHTML =  ` ${prioridades}`;
     let json = JSON.stringify(prioridades);
     let local = localStorage.setItem("data", json);
-    console.log(local);
+    let myData = localStorage.getItem("data");
+    console.log(myData);
+    var list = document.createElement("li");
+    console.log(list);
+
+    
+    var newContent = document.createTextNode(myData);
+    newDiv.appendChild(newContent);
+    var currentDiv = document.getElementById("propiedades-container");
+    document.body.insertBefore(list, currentDiv);
 }
 function popButton() {
     prioridades.pop()
