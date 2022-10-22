@@ -11,7 +11,7 @@ if(prioridades.length == 0){
 
 function pushButton() {
     prioridades.push(prioridad.value);
-    // misPrioridades.innerHTML =  ` ${prioridades}`;
+    misPrioridades.innerHTML =  ` ${prioridades}`;
     let json = JSON.stringify(prioridades);
     let local = localStorage.setItem("data", json);
     let myData = localStorage.getItem("data");
@@ -19,7 +19,7 @@ function pushButton() {
     var list = document.createElement("li");
     console.log(list);
 
-    
+
     var newContent = document.createTextNode(myData);
     newDiv.appendChild(newContent);
     var currentDiv = document.getElementById("propiedades-container");
