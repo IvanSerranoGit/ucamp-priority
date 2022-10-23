@@ -9,22 +9,38 @@ if(prioridades.length == 0){
     misPrioridades.innerHTML = "Aún no has agregado ninguna prioridad"
 }
 
+
 function pushButton() {
+    // agregamos el valor del campo prioridad a array prioridades
     prioridades.push(prioridad.value);
-    misPrioridades.innerHTML =  ` ${prioridades}`;
-    let json = JSON.stringify(prioridades);
-    let local = localStorage.setItem("data", json);
-    let myData = localStorage.getItem("data");
-    console.log(myData);
-    var list = document.createElement("li");
-    console.log(list);
+    // guardamos el local Storage los valore de prioridades
+    localStorage.setItem("prioridades", JSON.stringify(prioridades));
+    // transformamos el arrya en un objeto json
+    console.log(prioridades);
+    
 
+    // for (let value of prioridades) {
+    //     let list = document.createElement("li");
+    //     let textoPrioridad = document.createTextNode("soy");
+    //     document.body.appendChild(textoPrioridad);
 
-    var newContent = document.createTextNode(myData);
-    newDiv.appendChild(newContent);
-    var currentDiv = document.getElementById("propiedades-container");
-    document.body.insertBefore(list, currentDiv);
+    //     // let currentList = document.getElementById("monstrarPrioridades");
+    //     // document.body.insertBefore(list, currentList);
+    // }
+
+    // let priority = document.createTextNode(prioridades);
+
 }
+
+const btnList = document.getElementById('btnAdd');
+btnList.addEventListener('click',event => {
+    let lista = document.createElement('div');
+    let listText  = document.createTextNode(prioridades);
+    document.body.appendChild(listText);
+    misPrioridades.innerHTML =   ` ${prioridades} \n`;
+
+});
+
 function popButton() {
     prioridades.pop()
     misPrioridades.innerHTML =  ` ${prioridades}`;
@@ -47,6 +63,6 @@ fecha.innerHTML =  ` ${date}`;
 // .then(console.log())
 
 
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then(response => response.json())
-  .then(json => console.log(json))
+// fetch('https://jsonplaceholder.typicode.com/todos/1')
+//   .then(response => response.json())
+//   .then(json => console.log(json))

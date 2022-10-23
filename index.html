@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <main>
+    <main id="main">
         <div class="container">
             <header>
                 <div class="location">
@@ -22,11 +22,11 @@
                 <div class="date" id="date"></div>
             </header>
             <section>
-                <div class="prioridad">
+                <div class="prioridad" id="acatepongo">
                     <input id="prioridad" type="text" name="prioridades" placeholder="Prioridades">
                     <div id="div1"></div>
                     <div class="botones">
-                        <button onclick="pushButton()" type="submit" class="btn push">+</button>
+                        <button onclick="pushButton()" type="submit" class="btn push" id="btnAdd">+</button>
                         <button onclick="popButton()" type="submit" class="btn pop">x</button>
                         <button onclick="shiftButton()" type="submit" class="btn shift">-/</button> 
                     </div>
@@ -35,6 +35,7 @@
             <section class="propiedades-container" id="propiedades-container">
                 <div class="monstrarPrioridades active" id="monstrarPrioridades"><br>
                 </div>
+                <div id="prioridades"></div>
             </section>
             <section class="clima" id="clima">
                 <img alt="">
