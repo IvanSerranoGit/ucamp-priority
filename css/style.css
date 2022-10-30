@@ -2,22 +2,22 @@
     padding: 0;
     margin: 0;
 }
-body{
+body {
     font-family: 'Inter', sans-serif;
-}
-main {
     width: 100%;
     height: 100vh;
     min-width: 375px;
     background: rgb(0,52,143);
-background: linear-gradient(148deg, rgba(0,52,143,1) 0%, rgba(0,212,255,1) 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: linear-gradient(148deg, rgba(0,52,143,1) 0%, rgba(0,212,255,1) 100%);
+    color: #fff;
+}
+h1{
+    font-weight: bold;
 }
 .container{
-    min-width: 375px;
+    min-width: 370px;
     height: 80%;
+    padding: 10px;
     border-radius: 20px;
     background-image: url("../assets/images/background.png");
     background-position: center;
@@ -60,28 +60,10 @@ background: linear-gradient(148deg, rgba(0,52,143,1) 0%, rgba(0,212,255,1) 100%)
     align-items: center;
     justify-content: space-between;
 }
-.btn{
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    border: none;
-    font-size: 20px;
-    color: #fff;
-    padding: 0;
-}
-.push{
-    background-color: #2BB673;
-}
-.pop{
-    background-color: #ED1C24;
-}
-.shift{
-    background-color: #F7941D;
-}
+
+
 input[type]{
     background-color: transparent;
-    border: none;
-    height: 19px;
     outline: none;
     color: #fff;
     font-size: 16px;
@@ -98,9 +80,7 @@ input[type]{
     display: flex;
     justify-content: center;
 }
-#monstrarPrioridades{
-    width: 300px;
-}
+
 .active{
     height: auto;
     width: auto;

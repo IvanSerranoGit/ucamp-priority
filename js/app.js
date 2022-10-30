@@ -1,68 +1,105 @@
-var prioridades = [];
+// Varibales globales
+const formularioUI = document.getElementById('formulario');
+const listaPrioridadesUI = document.getElementById('listaPrioridades');
+let arrayPrioridades = [];
+// funciones
+const CrearPrioridad = (prioridad) => {
+    let prioridades = {
+        prioridad: prioridad,
+        estado: false
+    }
+    arrayPrioridades.push(prioridades)
+    return prioridades
+}
+// let priori1 = CrearPrioridad('Crear Web App');
+// let priori2 = CrearPrioridad('Crear movil App');
+// console.log(priori1);
+// console.log(arrayPrioridades);
 
-var misPrioridades = document.getElementById('monstrarPrioridades');
-var prioridad = document.getElementById('prioridad');
-
-var mostrar = document.getElementById('mostrar');
-
-if(prioridades.length == 0){
-    misPrioridades.innerHTML = "Aún no has agregado ninguna prioridad"
+const GuardarPrioridad = () => {
+    localStorage.setItem('prioridades', JSON.stringify(arrayPrioridades));
+    MostrarPrioridad();
 }
 
-
-function pushButton() {
-    // agregamos el valor del campo prioridad a array prioridades
-    prioridades.push(prioridad.value);
-    // guardamos el local Storage los valore de prioridades
-    localStorage.setItem("prioridades", JSON.stringify(prioridades));
-    // transformamos el arrya en un objeto json
-    console.log(prioridades);
-    
-
-    // for (let value of prioridades) {
-    //     let list = document.createElement("li");
-    //     let textoPrioridad = document.createTextNode("soy");
-    //     document.body.appendChild(textoPrioridad);
-
-    //     // let currentList = document.getElementById("monstrarPrioridades");
-    //     // document.body.insertBefore(list, currentList);
-    // }
-
-    // let priority = document.createTextNode(prioridades);
-
+const EliminarPrioridad = (prioridad) => {
+    // console.log(prioridad);
+    let indexArray;
+    arrayPrioridades.forEach((element, index) => {
+        // console.log(index);
+        if(element.prioridad === prioridad){
+            indexArray = index;
+            console.log(indexArray);
+        }
+    });
+    arrayPrioridades.splice(indexArray, 1);
+    GuardarPrioridad();
+}   
+const EditarPrioridad = (prioridad) => {
+    // buscan el undex
+    let indexArray = arrayPrioridades.findIndex((element) =>{
+        return element.prioridad === prioridad
+    });
+    console.log(indexArray);
+    console.log(arrayPrioridades[indexArray]);
+    arrayPrioridades[indexArray].estado = true;
+    GuardarPrioridad();
 }
+const MostrarPrioridad = () => {
+    // vacia lo que tenemos en html
+    listaPrioridadesUI.innerHTML = '';
+    arrayPrioridades = JSON.parse(localStorage.getItem('prioridades'));
+    // console.log(arrayPrioridades);
+    if(arrayPrioridades === null){
+        arrayPrioridades = [];
+    }else{
+        arrayPrioridades.forEach(element => {
 
-const btnList = document.getElementById('btnAdd');
-btnList.addEventListener('click',event => {
-    let lista = document.createElement('div');
-    let listText  = document.createTextNode(prioridades);
-    document.body.appendChild(listText);
-    misPrioridades.innerHTML =   ` ${prioridades} \n`;
+            if (element.estado) {
+                           // console.log(element);
+            listaPrioridadesUI.innerHTML += `<div class="alert alert-info" role="alert"><span class="material-symbols-rounded float-left mr-2">priority</span><b class="ml-4">${element.prioridad}</b> - ${element.estado}<span class="float-right"><span class="material-symbols-rounded">task_alt</span><span class="material-symbols-rounded">delete</span></span></div>` 
+            }else{
+                // console.log(element);
+                listaPrioridadesUI.innerHTML += `<div class="alert alert-danger" role="alert"><span class="material-symbols-rounded float-left mr-2">priority</span><b class="ml-4">${element.prioridad}</b> - ${element.estado}<span class="float-right"><span class="material-symbols-rounded">task_alt</span><span class="material-symbols-rounded">delete</span></span></div>`
+            }
 
+        });
+    }
+}
+// EventListener
+
+formularioUI.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let prioridadUI = document.getElementById('prioridad').value;
+    console.log(prioridadUI);
+
+    CrearPrioridad(prioridadUI);
+    GuardarPrioridad();
+    formularioUI.reset();
+});
+// se ejecuta cuando carga el HTML
+document.addEventListener('DOMContentLoaded', MostrarPrioridad())
+listaPrioridadesUI.addEventListener('click', (e) => {
+    e.preventDefault();
+    // console.log(e);
+    // console.log(e.path[2].childNodes[3].innerHTML);
+    // console.log(e.target.innerHTML);
+    if(e.target.innerHTML === 'task_alt' | e.target.innerHTML === 'delete'){
+        let textoPrioridad = e.path[2].childNodes[1].innerHTML
+        // console.log("accion task");
+        // console.log(e.path[2].childNodes[1].innerHTML); 
+        if(e.target.innerHTML === 'delete'){
+            // aliminar
+            EliminarPrioridad(textoPrioridad)
+        }
+        if(e.target.innerHTML === 'task_alt'){
+            // editar
+            EditarPrioridad(textoPrioridad);
+        }
+    }
 });
 
-function popButton() {
-    prioridades.pop()
-    misPrioridades.innerHTML =  ` ${prioridades}`;
-}
-function shiftButton() {
-    prioridades.shift()
-    misPrioridades.innerHTML =  ` ${prioridades}`;
-}
+
+// hora real
 let date = new Date().toDateString();
 let fecha = document.getElementById('date');
 fecha.innerHTML =  ` ${date}`;
-
-// let params = new URLSearchParams({
-//     access_key: 'f5c083ec9d8b9da800761e01757f67b1',
-//     query: 'Mexico'
-// })
-// const URL = `http://api.weatherstack.com/current${params}`;
-// fetch(URL)
-// .then(res => res.json())
-// .then(console.log())
-
-
-// fetch('https://jsonplaceholder.typicode.com/todos/1')
-//   .then(response => response.json())
-//   .then(json => console.log(json))
